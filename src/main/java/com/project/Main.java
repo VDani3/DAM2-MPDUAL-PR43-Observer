@@ -1,78 +1,47 @@
 package com.project;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
-
-/*
- * Aquest exemple defineix un
- * model observer simple, sobre
- * tipus de dades primitius
- * 
- * També mira els canvis a l'arxiu
- * 'arxiu.txt' i els mostra
- * per pantalla quan es modifica
- * encara que siguin fets per una
- * eina externa
- */
-
 public class Main {
+   public static void main (String[] args) {
 
-    public static void main (String[] args) {
-        String basePath = System.getProperty("user.dir") + "/data/";
-        String filePath = basePath + "./arxiu.txt";
-        File arxiu = new File(filePath);
 
-        Observable<Integer> obsNum = new Observable<Integer>(0) {
-            @Override
-            public void propertyChange(Integer oldValue, Integer newValue) {
-                System.out.printf("obsNum ha canviat de %s cap a %s\n", oldValue, newValue);
-            }            
-        };
+       PR450Producte p0 = new PR450Producte(0, "Llibre");
+       PR450Producte p1 = new PR450Producte(1, "Boli");
+       PR450Producte p2 = new PR450Producte(2, "Rotulador");
+       PR450Producte p3 = new PR450Producte(3, "Carpeta");
+       PR450Producte p4 = new PR450Producte(4, "Motxilla");
 
-        Observable<String> obsTxt = new Observable<String>("poma") {
-            @Override
-            public void propertyChange(String oldValue, String newValue) {
-                System.out.printf("obsTxt ha canviat de %s cap a %s\n", oldValue, newValue);
-            }            
-        };
 
-        ObservableFile obsFile = new ObservableFile(arxiu) {
-            @Override
-            public void onChange() {
-                System.out.println("Arxiu modificat");
-            }
-        };
+       PR450Magatzem magatzem = new PR450Magatzem();
+       PR450Entregues entregues = PR450Entregues.getInstance();
 
-        obsNum.setValue(1);
-        obsTxt.setValue("llimona");
-        obsNum.setValue(2);
-        obsTxt.setValue("meló");
 
-        System.out.println("Esperem 10 segons per si hi ha canvis a l'arxiu 'arxiu.txt'");
-        for (int cnt = 10; cnt > 0; cnt = cnt - 1) {
-            System.out.println("Contador: " + cnt);
-            wait(1);
-            if (cnt == 9) {
-                // Escribim l'arxiu per comprovar que detecta l'event
-                escriuArxiu(arxiu, "Hola arxiu");
-            }
-        }        
-    }
+       // Aquí afegir els property listeners adequats
 
-    public static void wait (int seconds) {
-        try {
-            TimeUnit.SECONDS.sleep(seconds);
-        } catch (InterruptedException e) { e.printStackTrace(); }
-    }
 
-    public static void escriuArxiu (File arxiu, String valor) {
-		try {
-			FileWriter fileWriter = new FileWriter(arxiu);
-			fileWriter.write(valor);
-			fileWriter.close();
+       p0.setId(5);
+       p0.setNom("Llibreta");
+       p1.setNom("Boli");
 
-		} catch (IOException e) { e.printStackTrace(); }
-    }
+
+       magatzem.addProducte(p0);
+       magatzem.addProducte(p1);
+       magatzem.addProducte(p2);
+       magatzem.addProducte(p3);
+       magatzem.addProducte(p4);
+
+
+       magatzem.removeProducte(2);
+       magatzem.removeProducte(3);
+       magatzem.removeProducte(4);
+
+
+       entregues.removeProducte(2);
+       entregues.removeProducte(3);
+
+
+       System.out.println(magatzem);
+       System.out.println(entregues);
+
+
+   }
 }
