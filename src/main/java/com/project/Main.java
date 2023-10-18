@@ -5,7 +5,7 @@ public class Main {
 
 
        PR450Producte p0 = new PR450Producte(0, "Llibre");
-       PR450Producte p1 = new PR450Producte(1, "Boli");
+       PR450Producte p1 = new PR450Producte(1, "Llapis");
        PR450Producte p2 = new PR450Producte(2, "Rotulador");
        PR450Producte p3 = new PR450Producte(3, "Carpeta");
        PR450Producte p4 = new PR450Producte(4, "Motxilla");

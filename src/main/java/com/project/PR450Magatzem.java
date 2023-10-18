@@ -21,6 +21,7 @@ public class PR450Magatzem {
     public void addProducte(PR450Producte productes) {
         this.productes.add(productes);
         this.capacitat -= 1;
+        notifyUpdate(productes.getId(), "a");
     }
     
     public void removeProducte(int id){
@@ -34,6 +35,7 @@ public class PR450Magatzem {
             }
         }
         this.capacitat += 1;
+        notifyUpdate(id,"r");
     }
 
     @Override
@@ -46,7 +48,14 @@ public class PR450Magatzem {
         return s;
     }
 
-
+    public void notifyUpdate(int id, String mode) {
+        if (mode.equals("a")) {
+            System.out.println(String.format("S'ha afegit el producte amb el id '%s' al magatzem, capacitat '%s'", id, this.capacitat));
+        } else if (mode.equals("r")) {
+            System.out.println(String.format("S'ha esborrat el producte amb id '%s' del magatzem, capacitat '%s'", id, capacitat));
+            System.out.println(String.format("S'ha mogut el producte amb id '%s' a la llista d'entreges", id));
+        }
+    }
 
 
 }

@@ -21,6 +21,7 @@ public class PR450Entregues {
 
     public void addProducte(PR450Producte producte) {
         this.productes.add(producte);
+        notifyUpdate(producte.getId(), "a");
     }
 
     public void removeProducte(int id){
@@ -32,6 +33,7 @@ public class PR450Entregues {
                 break;
             }
         }
+        notifyUpdate(id, "r");
     }
 
     @Override
@@ -42,5 +44,13 @@ public class PR450Entregues {
         }
         s = s+"]";
         return s;
+    }
+
+    public void notifyUpdate(int id, String mode) {
+        if (mode.equals("a")) {
+            System.out.println(String.format("S'ha afegit el producte amb el id '%s' a la llista d'entrega", id));
+        } else if (mode.equals("r")) {
+            System.out.println(String.format("S'ha entregat el producte amb id '%s'", id));
+        }
     }
 }
