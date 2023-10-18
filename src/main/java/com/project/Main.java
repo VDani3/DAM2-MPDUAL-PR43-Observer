@@ -3,7 +3,7 @@ package com.project;
 public class Main {
    public static void main (String[] args) {
 
-
+       System.out.println("\n");
        PR450Producte p0 = new PR450Producte(0, "Llibre");
        PR450Producte p1 = new PR450Producte(1, "Llapis");
        PR450Producte p2 = new PR450Producte(2, "Rotulador");
@@ -41,7 +41,7 @@ public class Main {
 
        System.out.println(magatzem);
        System.out.println(entregues);
-
+       System.out.println("\n");
 
    }
 }
